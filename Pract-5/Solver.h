@@ -6,7 +6,11 @@
 #include<unordered_map>
 
 using namespace std;
-
+struct pair_hash {
+	 size_t operator()(const pair<string, string>& v) const {
+		return v.first.length() * 31 + v.second.length();
+	}
+};
 class Solver {
 private:
 	char** words;
@@ -16,7 +20,7 @@ private:
 	vector<Triplet> vec_non_trivial_decompositions;
 	unordered_set<string> alphabet;
 	vector<string> vec_alphabet;
-	unordered_map<string, unordered_set<string>> graph;
+	unordered_map<string, list<pair<string,string>>> graph;
 
 public:
 	Solver(char** words, int verticalSize, int* horizontalSize) {
@@ -174,7 +178,7 @@ public:
 	void buildGraph() {
 		vec_alphabet.insert(vec_alphabet.end(), alphabet.begin(), alphabet.end());
 		for (int i = 0; i < vec_alphabet.size(); i++) {
-			unordered_set<string> destinations;
+			list<pair<string,string>> destinations;
 			graph.emplace(vec_alphabet[i], destinations);
 		}
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
@@ -183,31 +187,32 @@ public:
 				alphabet.find(triplet.prefix) != alphabet.end() &&
 				alphabet.find(triplet.suffix) != alphabet.end()
 				) {
-				graph.at(triplet.prefix).insert(triplet.suffix);
+				graph.at(triplet.prefix).push_back(make_pair(triplet.suffix, triplet.word));
 			}
 		}
 	}
 	void doDfs() {
 		unordered_set<string> visited;
 		string startVertex = "";
-		dfs(visited, startVertex, graph);
+		dfs(visited, startVertex, graph, "");
 	}
 	void dfs(
 		unordered_set<string>& visited,
 		string curVertex,
-		unordered_map<string, unordered_set<string>>& graph
+		unordered_map<string, list<pair<string, string>>>& graph,
+		string current_string
 	) {
 		cout << "current vertex: " << curVertex << endl;
 		if (visited.find(curVertex) != visited.end()) {
 			if (curVertex == "") {
-				cout << "Not Ok" << endl;
+				cout << "Not Ok: "<< current_string << endl;
 			}
 			return;
 		}
 		visited.emplace(curVertex);
 
 			for (const auto& elem : graph.at(curVertex)) {
-				dfs(visited, elem, graph);
+				dfs(visited, elem.first, graph, current_string + curVertex + elem.second);
 			}
 	}
 private:
