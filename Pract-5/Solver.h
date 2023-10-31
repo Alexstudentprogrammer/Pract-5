@@ -197,7 +197,7 @@ public:
 		string curVertex,
 		unordered_map<string, unordered_set<string>>& graph
 	) {
-		cout << "current vertex: " << endl;
+		cout << "current vertex: " << curVertex << endl;
 		if (visited.find(curVertex) != visited.end()) {
 			if (curVertex == "") {
 				cout << "Not Ok" << endl;
