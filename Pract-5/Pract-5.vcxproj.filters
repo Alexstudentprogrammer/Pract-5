@@ -18,12 +18,18 @@
     <ClCompile Include="Pract-5.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Triplet.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Solver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
