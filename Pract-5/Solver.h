@@ -189,7 +189,8 @@ public:
 				) {
 				graph.at(decomposition_candidate.prefix).push_back(
 					make_pair(
-					decomposition_candidate.suffix, decomposition_candidate.word
+						decomposition_candidate.suffix,
+						decomposition_candidate.word
 					)
 				);
 			}
