@@ -182,12 +182,16 @@ public:
 			graph.emplace(vec_alphabet[i], destinations);
 		}
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
-			Triplet triplet = vec_non_trivial_decompositions[i];
+			Triplet decomposition_candidate = vec_non_trivial_decompositions[i];
 			if (
-				alphabet.find(triplet.prefix) != alphabet.end() &&
-				alphabet.find(triplet.suffix) != alphabet.end()
+				alphabet.find(decomposition_candidate.prefix) != alphabet.end() &&
+				alphabet.find(decomposition_candidate.suffix) != alphabet.end()
 				) {
-				graph.at(triplet.prefix).push_back(make_pair(triplet.suffix, triplet.word));
+				graph.at(decomposition_candidate.prefix).push_back(
+					make_pair(
+					decomposition_candidate.suffix, decomposition_candidate.word
+					)
+				);
 			}
 		}
 	}
