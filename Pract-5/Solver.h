@@ -102,7 +102,13 @@ public:
 				canBeComposed[length_of_nth_word[i] - 1] = true;
 			}
 		}
+		// word aabcde
+		// aab
+		// F F T F F F
+		// cde
+		// F F T F F T
 		//step of dynamics
+		//O(L*max(length(words_given)*number_of_words)
 		for (int i = 1; i < wordToCheck.length(); i++) {
 			if (canBeComposed[i]) {
 				i++;// checking from next symbol
@@ -131,7 +137,8 @@ public:
 		}
 		return true;
 	}
-
+	//resolve prefix suffix must not belong to initioal words
+	//how to optimize decom. generation (consider sub-division)
 	void generateBAlphabet(vector<Triplet> decompositions) {
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			for (int j = 0; j < vec_non_trivial_decompositions.size(); j++) {
@@ -146,6 +153,8 @@ public:
 
 					int lengthOfSuffix1 = length_of_word2 - suffix;
 					if (
+						!belong_to_given_words(vec_non_trivial_decompositions[i].prefix) &&
+						!belong_to_given_words(vec_non_trivial_decompositions[i].suffix) &&
 						compare(
 							prefix,
 							word_of_prefix,
@@ -211,6 +220,7 @@ public:
 		if (visited.find(curVertex) != visited.end()) {
 			if (curVertex == "") {
 				cout << "Not Ok: "<< current_string << endl;
+				exit(1);
 			}
 			return;
 		}
@@ -249,6 +259,23 @@ private:
 			}
 		}
 		return true;
+	}
+
+	bool belong_to_given_words(string word) {
+		for (int i = 0; i < number_of_words; i++) {
+			if (word.length() == length_of_nth_word[i]) {
+				bool result = true;
+				for (int j = 0; j < length_of_nth_word[i]; j++) {
+					if (word[j] != words[i][j]) {
+						result = false;
+					}
+				}
+				if (result) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 };
 
