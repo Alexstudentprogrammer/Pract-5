@@ -172,7 +172,7 @@ public:
 		     }
 	    }
 	alphabet.insert("");
-    buildGraph();
+        buildGraph();
 	doDfs();
 }
 	void buildGraph() {
