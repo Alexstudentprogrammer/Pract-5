@@ -34,7 +34,7 @@ public:
 	{
 		if (
 			(this->start == triplet.start) &&
-		    (this->end == triplet.end) &&
+		        (this->end == triplet.end) &&
 			(this->wordNumber == triplet.wordNumber) &&
 			(this->length == triplet.length)
 			) {
