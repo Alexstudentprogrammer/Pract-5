@@ -4,5 +4,5 @@
 int main()
 {
     Test test;
-    test.run_test("Tests/test_file_2.txt");
+    test.run_test("Tests/test_file_1.txt");
 }
