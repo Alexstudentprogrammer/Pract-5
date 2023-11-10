@@ -127,13 +127,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HashTable.cpp" />
+    <ClCompile Include="list.cpp" />
     <ClCompile Include="Pract-5.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AbstractTable.h" />
+    <ClInclude Include="Container.h" />
+    <ClInclude Include="GroupContainer.h" />
+    <ClInclude Include="GroupList.h" />
+    <ClInclude Include="HashTable.h" />
+    <ClInclude Include="list.h" />
+    <ClInclude Include="ListAbstract.h" />
+    <ClInclude Include="Mem.h" />
+    <ClInclude Include="MemoryManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Solver.h" />
     <ClInclude Include="Triplet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Pract-5.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,8 +1,10 @@
+#pragma once
 #include<string>
 #include<iostream>
 #include<fstream>
 #include "Test.h"
 #include "Solver.h"
+#include "Mem.h"
 
 using namespace std;
 
@@ -25,8 +27,9 @@ void Test::upload(string file_path) {
 }
 
 void Test::run_test(string file_path) {
+	Mem mem(10);
 	upload(file_path);
-	Solver solver(words, number_of_words, nth_word_length);
+	Solver solver(words, number_of_words, nth_word_length, mem);
 	solver.solve();
 
 }

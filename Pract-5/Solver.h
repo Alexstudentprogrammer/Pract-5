@@ -4,6 +4,7 @@
 #include<vector>
 #include<unordered_set>
 #include<unordered_map>
+#include "HashTable.h"
 
 using namespace std;
 struct pair_hash {
@@ -18,12 +19,13 @@ private:
 	int* length_of_nth_word;
 	unordered_set<Triplet, Triplet::HashFunction> non_trivial_decompositions;
 	vector<Triplet> vec_non_trivial_decompositions;
+	HashTable non_trivial_decompositions1;
 	unordered_set<string> alphabet;
 	vector<string> vec_alphabet;
 	unordered_map<string, list<pair<string,string>>> graph;
 
 public:
-	Solver(char** words, int verticalSize, int* horizontalSize) {
+	Solver(char** words, int verticalSize, int* horizontalSize, Mem &mem) : non_trivial_decompositions1(mem) {
 		this->length_of_nth_word = horizontalSize;
 		this->number_of_words = verticalSize;
 		this->words = words;
