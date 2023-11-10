@@ -1,9 +1,9 @@
 #pragma once
 #include "Triplet.h"
-#include<set> 
-#include<vector>
-#include<unordered_set>
-#include<unordered_map>
+#include <set> 
+#include <vector>
+#include <unordered_set>
+#include <unordered_map>
 #include "HashTable.h"
 
 using namespace std;
@@ -19,13 +19,14 @@ private:
 	int* length_of_nth_word;
 	unordered_set<Triplet, Triplet::HashFunction> non_trivial_decompositions;
 	vector<Triplet> vec_non_trivial_decompositions;
-	HashTable non_trivial_decompositions1;
+	HashTable graph;
+
 	unordered_set<string> alphabet;
 	vector<string> vec_alphabet;
-	unordered_map<string, list<pair<string,string>>> graph;
+	//unordered_map<string, list<pair<string,string>>> graph;
 
 public:
-	Solver(char** words, int verticalSize, int* horizontalSize, Mem &mem) : non_trivial_decompositions1(mem) {
+	Solver(char** words, int verticalSize, int* horizontalSize, Mem &mem) : graph(mem) {
 		this->length_of_nth_word = horizontalSize;
 		this->number_of_words = verticalSize;
 		this->words = words;
@@ -183,14 +184,19 @@ public:
 		     }
 	    }
 	alphabet.insert("");
-        buildGraph();
+    buildGraph();
 	doDfs();
 }
 	void buildGraph() {
 		vec_alphabet.insert(vec_alphabet.end(), alphabet.begin(), alphabet.end());
 		for (int i = 0; i < vec_alphabet.size(); i++) {
 			list<pair<string,string>> destinations;
-			graph.emplace(vec_alphabet[i], destinations);
+			graph.insertByKey(
+				&vec_alphabet[i],
+				sizeof(vec_alphabet[i]),
+				&destinations,
+				sizeof(destinations)
+			);
 		}
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			Triplet decomposition_candidate = vec_non_trivial_decompositions[i];
@@ -198,7 +204,17 @@ public:
 				alphabet.find(decomposition_candidate.prefix) != alphabet.end() &&
 				alphabet.find(decomposition_candidate.suffix) != alphabet.end()
 				) {
-				graph.at(decomposition_candidate.prefix).push_back(
+				size_t value_size;
+				void* list_ptr = graph.at(
+					&(decomposition_candidate.prefix),
+					sizeof(decomposition_candidate.prefix),
+					value_size
+				);
+				list<pair<string, string>>* ls = (list<pair<string, string>>*)list_ptr;
+				if (ls == NULL) {
+					ls = new list<pair<string, string>>;
+				}
+				ls->push_back(
 					make_pair(
 						decomposition_candidate.suffix,
 						decomposition_candidate.word
@@ -215,7 +231,7 @@ public:
 	void dfs(
 		unordered_set<string>& visited,
 		string curVertex,
-		unordered_map<string, list<pair<string, string>>>& graph,
+		HashTable &graph,
 		string current_string
 	) {
 		cout << "current vertex: " << curVertex << endl;
@@ -227,10 +243,18 @@ public:
 			return;
 		}
 		visited.emplace(curVertex);
-
-			for (const auto& elem : graph.at(curVertex)) {
+		size_t cur_vertex_size;
+		list<pair<string, string>>* neighbors = 
+			(list<pair<string, string>>*)graph.at(
+				&curVertex,
+				sizeof(curVertex),
+				cur_vertex_size
+			);
+		if (neighbors != NULL) {
+			for (const auto& elem : *neighbors) {
 				dfs(visited, elem.first, graph, current_string + curVertex + elem.second);
 			}
+		}
 	}
 private:
 	bool compare(

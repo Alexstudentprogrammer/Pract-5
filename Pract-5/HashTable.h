@@ -148,6 +148,7 @@ private:
 		removeByKey(cell->getKey(), cell->getKeySize());
 		delete iterator;
 	};
+	public:
 	int insertByKey(void* key, size_t keySize, void* elem, size_t elemSize) {//handle insertion of existing element
 
 		int hash = hash_function(key, keySize);
