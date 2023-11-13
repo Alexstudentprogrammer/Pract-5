@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Containers">
+      <UniqueIdentifier>{0044d953-ca80-4525-9475-432e9c74ed77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Containers\Vector">
+      <UniqueIdentifier>{9ad75dcc-16c8-49a1-b139-559ae6daaa9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Pract-5.cpp">
@@ -31,6 +37,15 @@
     </ClInclude>
     <ClInclude Include="Test.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="my_vector.h">
+      <Filter>Header Files\Containers\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="IndexOutOfBoubds.h">
+      <Filter>Header Files\Containers\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="HashTable.h">
+      <Filter>Header Files\Containers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

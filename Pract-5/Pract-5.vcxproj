@@ -131,6 +131,9 @@
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HashTable.h" />
+    <ClInclude Include="IndexOutOfBoubds.h" />
+    <ClInclude Include="my_vector.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Solver.h" />
     <ClInclude Include="Triplet.h" />

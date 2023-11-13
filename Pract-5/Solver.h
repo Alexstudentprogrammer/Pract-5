@@ -21,14 +21,14 @@ private:
 	unordered_set<string> alphabet;
 	vector<string> vec_alphabet;
 	unordered_map<string, list<pair<string,string>>> graph;
-
+	//
 public:
 	Solver(char** words, int verticalSize, int* horizontalSize) {
 		this->length_of_nth_word = horizontalSize;
 		this->number_of_words = verticalSize;
 		this->words = words;
 	}
-
+	//O((number_of_words)^2 * (length_of_word)^4)
 	void solve() {
 		for (
 			int current_word_number = 0;
@@ -181,7 +181,7 @@ public:
 		     }
 	    }
 	alphabet.insert("");
-        buildGraph();
+    buildGraph();
 	doDfs();
 }
 	void buildGraph() {
@@ -216,7 +216,7 @@ public:
 		unordered_map<string, list<pair<string, string>>>& graph,
 		string current_string
 	) {
-		cout << "current vertex: " << curVertex << endl;
+		//cout << "current vertex: " << curVertex << endl;
 		if (visited.find(curVertex) != visited.end()) {
 			if (curVertex == "") {
 				cout << "Not Ok: "<< current_string << endl;
