@@ -47,5 +47,8 @@
     <ClInclude Include="HashTable.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="KeyHash.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

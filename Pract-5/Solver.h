@@ -4,6 +4,7 @@
 #include<vector>
 #include<unordered_set>
 #include<unordered_map>
+#include "HashTable.h"
 
 using namespace std;
 struct pair_hash {
@@ -20,8 +21,9 @@ private:
 	vector<Triplet> vec_non_trivial_decompositions;
 	unordered_set<string> alphabet;
 	vector<string> vec_alphabet;
-	unordered_map<string, list<pair<string,string>>> graph;
-	//
+	//unordered_map<string, list<pair<string,string>>> graph;
+	HashTable<string, list<pair<string, string>>> graph;
+
 public:
 	Solver(char** words, int verticalSize, int* horizontalSize) {
 		this->length_of_nth_word = horizontalSize;
@@ -186,9 +188,9 @@ public:
 }
 	void buildGraph() {
 		vec_alphabet.insert(vec_alphabet.end(), alphabet.begin(), alphabet.end());
-		for (int i = 0; i < vec_alphabet.size(); i++) {
+		for (int i = 0; i < vec_alphabet.size(); i++) {// fixed size of graph
 			list<pair<string,string>> destinations;
-			graph.emplace(vec_alphabet[i], destinations);
+			graph.put(vec_alphabet[i], destinations);
 		}
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			Triplet decomposition_candidate = vec_non_trivial_decompositions[i];
@@ -196,7 +198,7 @@ public:
 				alphabet.find(decomposition_candidate.prefix) != alphabet.end() &&
 				alphabet.find(decomposition_candidate.suffix) != alphabet.end()
 				) {
-				graph.at(decomposition_candidate.prefix).push_back(
+				graph.get(decomposition_candidate.prefix).push_back(
 					make_pair(
 						decomposition_candidate.suffix,
 						decomposition_candidate.word
@@ -213,7 +215,7 @@ public:
 	void dfs(
 		unordered_set<string>& visited,
 		string curVertex,
-		unordered_map<string, list<pair<string, string>>>& graph,
+		HashTable<string, list<pair<string, string>>>& graph,
 		string current_string
 	) {
 		//cout << "current vertex: " << curVertex << endl;
@@ -226,7 +228,7 @@ public:
 		}
 		visited.emplace(curVertex);
 
-			for (const auto& elem : graph.at(curVertex)) {
+			for (const auto& elem : graph.get(curVertex)) {
 				dfs(visited, elem.first, graph, current_string + curVertex + elem.second);
 			}
 	}

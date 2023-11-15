@@ -133,6 +133,7 @@
   <ItemGroup>
     <ClInclude Include="HashTable.h" />
     <ClInclude Include="IndexOutOfBoubds.h" />
+    <ClInclude Include="KeyHash.h" />
     <ClInclude Include="my_vector.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Solver.h" />

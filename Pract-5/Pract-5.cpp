@@ -3,15 +3,19 @@
 #include "Test.h"
 #include "my_vector.h"
 #include "HashTable.h"
+#include "my_vector.h"
+#include <list>
 int main()
 {
 
-    Test test;
-    HashTable t;
-    // test.run_test("Tests/test_file_4.txt");
-    test.run_stress_test1(4); // variate n - and analyze time and steps
-   
-    // dependency of 2 parameters
+    Test test; 
+
+   /* Vector<list<int*>> vec(10);
+    list<int*> ls = vec[0];*/
+    
+   // dependency of 2 parameters
+   test.run_test("Tests/stress_test_2.txt");
+   // test.run_stress_test1(8); // variate n - and analyze time and steps
 
     /*
     test1 - 2^9 words of length 9

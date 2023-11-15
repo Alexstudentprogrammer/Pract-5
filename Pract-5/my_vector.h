@@ -46,9 +46,9 @@ public:
         arr[current_end++] = shape;
     }
 
-    T* operator[](int index) {
+    T& operator[](int index) {
         if (index < size_reserved)
-            return (arr + index);
+            return arr[index];
     }
 
     inline bool isEmpty() {
