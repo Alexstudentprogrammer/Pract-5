@@ -33,8 +33,9 @@ public:
     void push(T shape) {
 
         if (isFull()) {
-            T* tmp = new T[size_reserved * 2];
-            size_reserved *= 2;
+          
+            T* tmp = new T[size_reserved * 2 + 1];
+            size_reserved = size_reserved * 2 + 1;
 
             for (int i = 0; i < current_end; i++) {
                 tmp[i] = arr[i];
@@ -49,6 +50,16 @@ public:
     T& operator[](int index) {
         if (index < size_reserved)
             return arr[index];
+    }
+
+    inline int size() {
+        return current_end;
+    }
+
+    void insertAll(Vector<T>& candidates) {
+        for (int i = 0; i < candidates.size(); i++) {
+            push(candidates[i]);
+        }
     }
 
     inline bool isEmpty() {

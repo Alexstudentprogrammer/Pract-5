@@ -5,6 +5,7 @@
 #include<unordered_set>
 #include<unordered_map>
 #include "HashTable.h"
+#include "my_vector.h"
 
 using namespace std;
 struct pair_hash {
@@ -19,8 +20,9 @@ private:
 	int* length_of_nth_word;
 	unordered_set<Triplet, Triplet::HashFunction> non_trivial_decompositions;
 	vector<Triplet> vec_non_trivial_decompositions;
-	unordered_set<string> alphabet;
-	vector<string> vec_alphabet;
+	//unordered_set<string> alphabet;
+	HashTable<string, int> alphabet;
+	Vector<string> vec_alphabet;
 	//unordered_map<string, list<pair<string,string>>> graph;
 	HashTable<string, list<pair<string, string>>> graph;
 
@@ -170,7 +172,7 @@ public:
 					if (prefix == 0) {
 						char* part_of_alphabet = new char[1];
 						part_of_alphabet[0] = '\0';
-						alphabet.insert(string(part_of_alphabet));
+						alphabet.put(string(part_of_alphabet), 0);
 						continue;
 					}
 					char* part_of_alphabet = new char[prefix + 1];
@@ -178,16 +180,21 @@ public:
 						part_of_alphabet[k] = words[word_of_prefix][k];
 					}
 					part_of_alphabet[prefix] = '\0';
-					alphabet.insert(string(part_of_alphabet));
+					alphabet.put(string(part_of_alphabet), 0);
 			        }
 		     }
 	    }
-	alphabet.insert("");
+	/*Vector<string> v = 	alphabet.getAllKeys();
+	for (int i = 0; i < v.size(); i++) {
+		cout << v[i] << endl;
+	}*/
+	alphabet.put("", 0);
     buildGraph();
 	doDfs();
 }
 	void buildGraph() {
-		vec_alphabet.insert(vec_alphabet.end(), alphabet.begin(), alphabet.end());
+		//vec_alphabet.insert(vec_alphabet.end(), alphabet.begin(), alphabet.end());
+		vec_alphabet.insertAll(alphabet.getAllKeys());
 		for (int i = 0; i < vec_alphabet.size(); i++) {// fixed size of graph
 			list<pair<string,string>> destinations;
 			graph.put(vec_alphabet[i], destinations);
@@ -195,8 +202,8 @@ public:
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			Triplet decomposition_candidate = vec_non_trivial_decompositions[i];
 			if (
-				alphabet.find(decomposition_candidate.prefix) != alphabet.end() &&
-				alphabet.find(decomposition_candidate.suffix) != alphabet.end()
+				alphabet.get(decomposition_candidate.prefix) != -1 &&
+				alphabet.get(decomposition_candidate.suffix) != -1
 				) {
 				graph.get(decomposition_candidate.prefix).push_back(
 					make_pair(
