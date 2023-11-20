@@ -2,7 +2,7 @@
 #include <list>
 #include "my_vector.h"
 #include "KeyHash.h"
-
+#pragma warning(disable:4267)
 
 template <typename K, typename V, typename F = KeyHash>
 class HashTable {
@@ -23,7 +23,7 @@ public:
 	void put(K key, V value) {
 		int position = hashFunction(key);
 		list<Node*>* tmp = table->get(position);
-		
+
 		for (auto& node : *tmp)
 		{
 			if (node->key == key) {

@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#pragma warning(disable:4267)
 struct KeyHash {
 	int operator()(string& key)
 	{
@@ -12,6 +13,5 @@ struct KeyHash {
 			hash %= 130253;
 		}
 		return hash % 100;
-		return 10;
 	}
 };

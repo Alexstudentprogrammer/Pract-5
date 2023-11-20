@@ -14,7 +14,9 @@ public:
         current_end = 0;
     }
     Vector() {
-
+        size_reserved = 1;
+        arr = new T[1];
+        current_end = 0;
     }
 
     T* get(int index) throw (IndexOutOfBounds) {

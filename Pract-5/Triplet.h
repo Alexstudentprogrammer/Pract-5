@@ -30,6 +30,10 @@ public:
 		this->word = word;
 	}
 
+	Triplet() {
+
+	}
+
 	bool operator ==(const Triplet& triplet) const
 	{
 		if (
@@ -42,6 +46,7 @@ public:
 		}
 		return false;
 	}
+public:
 	struct HashFunction
 	{
 		size_t operator()(const Triplet& triplet) const
@@ -50,7 +55,7 @@ public:
 			size_t endHash = std::hash<int>()(triplet.end) << 1;
 			size_t wordNumberHash = std::hash<int>()(triplet.wordNumber) << 2;
 			size_t lengthHash = std::hash<int>()(triplet.length) << 3;
-			return startHash ^ endHash ^ wordNumberHash ^ lengthHash;
+			return (startHash ^ endHash ^ wordNumberHash ^ lengthHash) % 100;
 		}
 	};
 };

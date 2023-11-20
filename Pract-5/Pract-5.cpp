@@ -9,19 +9,13 @@ int main()
 {
 
     Test test; 
-
-  // test.run_test("Tests/test_file_2.txt");
-   /* HashTable<string, int> alphabet;
-    alphabet.put("", 0);
-    alphabet.put("b", 0);
-    alphabet.put("ac", 0);
-
-    alphabet.put("", 0);*/
-   /* Vector<list<int*>> vec(10);
-    list<int*> ls = vec[0];*/
+    test.run_test("Tests/stress_test_2.txt");
+   /* HashTable<Triplet, int, Triplet::HashFunction> alphabet;
+    Triplet t;
+    alphabet.put(t, 0);*/
     
    // dependency of 2 parameters
-    test.run_test("Tests/stress_test.txt");
+   // test.run_test("Tests/stress_test.txt");
    // test.run_stress_test1(8); // variate n - and analyze time and steps
 
     /*

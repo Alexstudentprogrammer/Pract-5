@@ -18,12 +18,10 @@ private:
 	char** words;
 	int number_of_words;
 	int* length_of_nth_word;
-	unordered_set<Triplet, Triplet::HashFunction> non_trivial_decompositions;
-	vector<Triplet> vec_non_trivial_decompositions;
-	//unordered_set<string> alphabet;
+	HashTable<Triplet, int, Triplet::HashFunction> non_trivial_decompositions;
+	Vector<Triplet> vec_non_trivial_decompositions;
 	HashTable<string, int> alphabet;
 	Vector<string> vec_alphabet;
-	//unordered_map<string, list<pair<string,string>>> graph;
 	HashTable<string, list<pair<string, string>>> graph;
 
 public:
@@ -82,16 +80,12 @@ public:
 							string(tmp_suffix),
 							string(tmp_middle_part)
 						);
-						non_trivial_decompositions.insert(decomposition_candidate);
+						non_trivial_decompositions.put(decomposition_candidate, 0);
 					}
 				}
 			}
 		}
-		vec_non_trivial_decompositions.insert(
-			vec_non_trivial_decompositions.end(),
-			non_trivial_decompositions.begin(),
-			non_trivial_decompositions.end()
-		);
+		vec_non_trivial_decompositions.insertAll(non_trivial_decompositions.getAllKeys());
 		generateBAlphabet(vec_non_trivial_decompositions);
 	}
 public:
@@ -143,7 +137,7 @@ public:
 	}
 	//resolve prefix suffix must not belong to initioal words
 	//how to optimize decom. generation (consider sub-division)
-	void generateBAlphabet(vector<Triplet> decompositions) {
+	void generateBAlphabet(Vector<Triplet> decompositions) {
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			for (int j = 0; j < vec_non_trivial_decompositions.size(); j++) {
 
