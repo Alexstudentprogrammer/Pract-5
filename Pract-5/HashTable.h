@@ -17,8 +17,8 @@ private:
 
 public:
 	HashTable() {
-		table = new Vector<list<Node*>>(100);
-		keys = new Vector<K>(100);
+		table = new Vector<list<Node*>>(1000);
+		keys = new Vector<K>(1000);
 	}
 	void put(K key, V value) {
 		int position = hashFunction(key);

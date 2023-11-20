@@ -137,6 +137,7 @@ public:
 	}
 	//resolve prefix suffix must not belong to initioal words
 	//how to optimize decom. generation (consider sub-division)
+	//O(num_of_words * (length_of_word)^3)
 	void generateBAlphabet(Vector<Triplet> decompositions) {
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			for (int j = 0; j < vec_non_trivial_decompositions.size(); j++) {
@@ -178,10 +179,6 @@ public:
 			        }
 		     }
 	    }
-	/*Vector<string> v = 	alphabet.getAllKeys();
-	for (int i = 0; i < v.size(); i++) {
-		cout << v[i] << endl;
-	}*/
 	alphabet.put("", 0);
     buildGraph();
 	doDfs();

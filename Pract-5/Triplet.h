@@ -55,7 +55,7 @@ public:
 			size_t endHash = std::hash<int>()(triplet.end) << 1;
 			size_t wordNumberHash = std::hash<int>()(triplet.wordNumber) << 2;
 			size_t lengthHash = std::hash<int>()(triplet.length) << 3;
-			return (startHash ^ endHash ^ wordNumberHash ^ lengthHash) % 100;
+			return (startHash ^ endHash ^ wordNumberHash ^ lengthHash) % 1000;
 		}
 	};
 };

@@ -12,6 +12,6 @@ struct KeyHash {
 			hash = hash + temp[i];
 			hash %= 130253;
 		}
-		return hash % 100;
+		return hash % 1000;
 	}
 };

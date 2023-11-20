@@ -9,7 +9,7 @@ int main()
 {
 
     Test test; 
-    test.run_test("Tests/stress_test_2.txt");
+    test.run_test("Tests/stress_test.txt");
    /* HashTable<Triplet, int, Triplet::HashFunction> alphabet;
     Triplet t;
     alphabet.put(t, 0);*/
