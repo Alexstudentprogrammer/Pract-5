@@ -9,7 +9,7 @@ private:
 	void upload(std::string file_path);
 public:
 	void run_test(std::string file_path);
-	void run_stress_test1(int n);
+	void run_stress_test1(int n, int count);
 	void run_stress_test2(int n);//paste odd argument (number)
-	void run_stress_test3(int n);
+	void run_stress_test3(int len, int words);
 };

@@ -17,10 +17,14 @@ void printTheArray(int arr[], int n, fstream& in)
 }
 
 // Function to generate all binary strings
-void generateAllBinaryStrings(int n, int arr[], int i, fstream& in)
+void generateAllBinaryStrings(int n, int arr[], int i, fstream& in, int &printed, int &want)
 {
-	if (i == n) {
+	if (i == n && printed < want) {
+		printed++;
 		printTheArray(arr, n, in);
+		return;
+	}
+	else if (i == n) {
 		return;
 	}
 
@@ -28,13 +32,13 @@ void generateAllBinaryStrings(int n, int arr[], int i, fstream& in)
 	// and try for all other permutations
 	// for remaining positions
 	arr[i] = 0;
-	generateAllBinaryStrings(n, arr, i + 1, in);
+	generateAllBinaryStrings(n, arr, i + 1, in, printed, want);
 
 	// And then assign "1" at ith position
 	// and try for all other permutations
 	// for remaining positions
 	arr[i] = 1;
-	generateAllBinaryStrings(n, arr, i + 1, in);
+	generateAllBinaryStrings(n, arr, i + 1, in, printed, want);
 }
 
 void Test::upload(string file_path) {
@@ -58,22 +62,28 @@ void Test::upload(string file_path) {
 void Test::run_test(string file_path) {
 	upload(file_path);
 	Solver solver(words, number_of_words, nth_word_length);
+
+	clock_t start_clock = clock();
 	solver.solve();
+	clock_t duration = clock() - start_clock;
+	cout << "Time, for test: " << (double)duration / CLOCKS_PER_SEC << endl;
 
 }
 
-void Test::run_stress_test1(int n) {
+void Test::run_stress_test1(int n, int count) {
 	fstream io("Tests/stress_test.txt");
-	io << (pow(2, n));
+	io << (count);
 	io << endl;
-	for (int i = 0; i < pow(2, n); i++) {
+	for (int i = 0; i < count; i++) {
 		io << n;
-		if (i != (pow(2, n) - 1))
+		if (i != (count - 1))
 			io << " ";
 	}
 	io << endl;
 	int *arr = new int[n];
-	generateAllBinaryStrings(n, arr, 0, io);
+
+	int printed = 0, want = count;
+	generateAllBinaryStrings(n, arr, 0, io, printed, count);
 
 	upload("Tests/stress_test.txt");
 	Solver solver(words, number_of_words, nth_word_length);
@@ -99,7 +109,8 @@ void Test::run_stress_test2(int n) {
 
 	io << endl;
 	int* arr = new int[n + 2];
-	generateAllBinaryStrings(n, arr, 0, io);
+	int printed = 0, wanted = n;
+	generateAllBinaryStrings(n, arr, 0, io, printed, wanted);
 	io << 101;
 	io << endl;
 	io << 111;

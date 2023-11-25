@@ -7,6 +7,7 @@
 #include "HashTable.h"
 #include "my_vector.h"
 
+//int total_steps = 0;
 using namespace std;
 struct pair_hash {
 	 size_t operator()(const pair<string, string>& v) const {
@@ -15,6 +16,7 @@ struct pair_hash {
 };
 class Solver {
 private:
+    long double total_steps = 0;
 	char** words;
 	int number_of_words;
 	int* length_of_nth_word;
@@ -31,6 +33,7 @@ public:
 		this->words = words;
 	}
 	//O((number_of_words)^2 * (length_of_word)^4)
+	//number_of_words * (length_of_word)^2
 	void solve() {
 		for (
 			int current_word_number = 0;
@@ -80,11 +83,12 @@ public:
 							string(tmp_suffix),
 							string(tmp_middle_part)
 						);
-						non_trivial_decompositions.put(decomposition_candidate, 0);
+						non_trivial_decompositions.put(decomposition_candidate, 0);// size = number_of_words * (length_of_word)^2
 					}
 				}
 			}
 		}
+		total_steps;
 		vec_non_trivial_decompositions.insertAll(non_trivial_decompositions.getAllKeys());
 		generateBAlphabet(vec_non_trivial_decompositions);
 	}
@@ -94,23 +98,19 @@ public:
 		for (int i = 0; i < wordToCheck.length(); i++) {
 			canBeComposed[i] = false;
 		}
-		//base of dynamics
+		// base of dynamics
 		for (int i = 0; i < number_of_words; i++) {
 			if (compare_strs(words[i], wordToCheck, 0, length_of_nth_word[i])) {
 				canBeComposed[length_of_nth_word[i] - 1] = true;
 			}
 		}
-		// word aabcde
-		// aab
-		// F F T F F F
-		// cde
-		// F F T F F T
-		//step of dynamics
-		//O(L*max(length(words_given)*number_of_words)
+		// step
+		// O(L*max(length(words_given)*number_of_words)
 		for (int i = 1; i < wordToCheck.length(); i++) {
 			if (canBeComposed[i]) {
 				i++;// checking from next symbol
 				for (int j = 0; j < number_of_words; j++) {
+
 					if (compare_strs(words[j], wordToCheck, i, length_of_nth_word[j])) {
 						canBeComposed[i + length_of_nth_word[j] - 1] = true;
 					}
@@ -126,18 +126,22 @@ public:
 		int start_symbol,
 		int wordSize
 	) {
+		total_steps++;
 		if (word_to_check.length() - start_symbol < wordSize)
 			return false;
 
 		for (int i = 0, j = start_symbol; i < wordSize; i++, j++) {
+			total_steps++;
 			if (word_to_check[j] != word[i])
 				return false;
 		}
 		return true;
 	}
-	//resolve prefix suffix must not belong to initioal words
+	//resolve prefix suffix must not belong to init words
 	//how to optimize decom. generation (consider sub-division)
-	//O(num_of_words * (length_of_word)^3)
+	
+	//O(num_of_words^3 * (length_of_word)^5) - BOTTLE NECK
+
 	void generateBAlphabet(Vector<Triplet> decompositions) {
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
 			for (int j = 0; j < vec_non_trivial_decompositions.size(); j++) {
@@ -181,6 +185,8 @@ public:
 	    }
 	alphabet.put("", 0);
     buildGraph();
+	total_steps;
+	cout << "Total steps: " << total_steps << endl;
 	doDfs();
 }
 	void buildGraph() {
@@ -263,9 +269,11 @@ private:
 
 	bool belong_to_given_words(string word) {
 		for (int i = 0; i < number_of_words; i++) {
+			total_steps++;
 			if (word.length() == length_of_nth_word[i]) {
 				bool result = true;
 				for (int j = 0; j < length_of_nth_word[i]; j++) {
+					total_steps++;
 					if (word[j] != words[i][j]) {
 						result = false;
 					}

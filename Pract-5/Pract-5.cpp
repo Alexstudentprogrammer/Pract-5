@@ -7,24 +7,51 @@
 #include <list>
 int main()
 {
+    // Graphx
+    Test test;
 
-    Test test; 
-    test.run_test("Tests/stress_test.txt");
-   /* HashTable<Triplet, int, Triplet::HashFunction> alphabet;
-    Triplet t;
-    alphabet.put(t, 0);*/
-    
-   // dependency of 2 parameters
-   // test.run_test("Tests/stress_test.txt");
-   // test.run_stress_test1(8); // variate n - and analyze time and steps
+   //test.run_test("Tests/stress_test_3.txt");
+   //test.run_stress_test1(11, 44); // variate n - and analyze time and steps
 
-    /*
-    test1 - 2^9 words of length 9
-    60 seconds (debug mode)
-    operations approximation: (2^9)^2 = 216 144
-                               9^4 = 6561
-                               Total, aprox. 1.72 * 10^(9)
-    */
+   while (true) {
+
+       int option;
+       cout << " 1 - Run correctness test" << endl;
+       cout << " 2 - Run stress test with correct code words" << endl;
+       cout << " 3 - Run stress test with incorrect code words" << endl;
+       cout << " 4 - Run worth case stress test with incorrect code words" << endl;
+       cin >> option;
+
+       switch (option)
+       {
+       case 1: {
+           test.run_test("Tests/test_file_1.txt");
+           test.run_test("Tests/test_file_2.txt");
+           break;
+       }
+       case 2: {
+           int word_len, number_of_words;
+           cout << " Enter word length and number of words" << endl;
+           cin >> word_len >> number_of_words;
+           test.run_stress_test1(word_len, number_of_words);
+           break;
+       }
+       case 3: {
+           test.run_test("Tests/stress_test_2.txt");
+           break;
+        }
+
+       case 4: {
+           test.run_test("Tests/stress_test_3.txt");
+           break;
+       }
+
+       default:
+           cout << " Incorrect option" << endl;
+           break;
+       }
+
+   }
 
     // test - 1
     // generate binary numbers of fixed size
