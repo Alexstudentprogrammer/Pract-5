@@ -10,8 +10,8 @@ int main()
     // Graphx
     Test test;
 
-   //test.run_test("Tests/stress_test_3.txt");
-   //test.run_stress_test1(11, 44); // variate n - and analyze time and steps
+   // test.run_test("Tests/stress_test_3.txt");
+   // test.run_stress_test1(11, 44); // variate n - and analyze time and steps
 
    while (true) {
 
@@ -19,7 +19,7 @@ int main()
        cout << " 1 - Run correctness test" << endl;
        cout << " 2 - Run stress test with correct code words" << endl;
        cout << " 3 - Run stress test with incorrect code words" << endl;
-       cout << " 4 - Run worth case stress test with incorrect code words" << endl;
+       cout << " 4 - Run worse case stress test with incorrect code words" << endl;
        cin >> option;
 
        switch (option)

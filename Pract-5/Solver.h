@@ -1,9 +1,9 @@
 #pragma once
 #include "Triplet.h"
-#include<set> 
-#include<vector>
-#include<unordered_set>
-#include<unordered_map>
+#include <set> 
+#include <vector>
+#include <unordered_set>
+#include <unordered_map>
 #include "HashTable.h"
 #include "my_vector.h"
 
@@ -266,7 +266,7 @@ private:
 		}
 		return true;
 	}
-
+	// num_of_words * length_of_word
 	bool belong_to_given_words(string word) {
 		for (int i = 0; i < number_of_words; i++) {
 			total_steps++;
