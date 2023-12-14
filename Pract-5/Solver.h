@@ -6,8 +6,8 @@
 #include <unordered_map>
 #include "HashTable.h"
 #include "my_vector.h"
+#include "Trie.h"
 
-//int total_steps = 0;
 using namespace std;
 struct pair_hash {
 	 size_t operator()(const pair<string, string>& v) const {
@@ -26,11 +26,16 @@ private:
 	Vector<string> vec_alphabet;
 	HashTable<string, list<pair<string, string>>> graph;
 
+	Trie given_words;
+
 public:
 	Solver(char** words, int verticalSize, int* horizontalSize) {
 		this->length_of_nth_word = horizontalSize;
 		this->number_of_words = verticalSize;
 		this->words = words;
+		for (int i = 0; i < verticalSize; i++) {
+			given_words.add_word(string(words[i]));
+		}
 	}
 	//O((number_of_words)^2 * (length_of_word)^4)
 	//number_of_words * (length_of_word)^2
@@ -53,9 +58,9 @@ public:
 						continue;
 					}
 					
-					char* tmp_prefix = new char [start + 1];
-					char* tmp_suffix = new char[current_word_length - end + 1];
-					char* tmp_middle_part = new char[end - start + 1];
+					char* tmp_prefix = new char [start + 1];// try move to stack
+					char* tmp_suffix = new char [current_word_length - end + 1];
+					char* tmp_middle_part = new char [end - start + 1];
 
 					for (int i = 0; i < start; i++) {
 						tmp_prefix[i] = words[current_word_number][i];
@@ -104,6 +109,7 @@ public:
 				canBeComposed[length_of_nth_word[i] - 1] = true;
 			}
 		}
+		// Add trie here ***
 		// step
 		// O(L*max(length(words_given)*number_of_words)
 		for (int i = 1; i < wordToCheck.length(); i++) {
@@ -185,7 +191,6 @@ public:
 	    }
 	alphabet.put("", 0);
     buildGraph();
-	total_steps;
 	cout << "Total steps: " << total_steps << endl;
 	doDfs();
 }
@@ -259,7 +264,6 @@ private:
 		}
 
 		for (int i = 0; i < prefix; i++) {
-
 			if (prefix_word[i] != tmp_suffix[i]) {
 				return false;
 			}
@@ -268,22 +272,7 @@ private:
 	}
 	// num_of_words * length_of_word
 	bool belong_to_given_words(string word) {
-		for (int i = 0; i < number_of_words; i++) {
-			total_steps++;
-			if (word.length() == length_of_nth_word[i]) {
-				bool result = true;
-				for (int j = 0; j < length_of_nth_word[i]; j++) {
-					total_steps++;
-					if (word[j] != words[i][j]) {
-						result = false;
-					}
-				}
-				if (result) {
-					return true;
-				}
-			}
-		}
-		return false;
+		return given_words.check_word(word, total_steps);
 	}
 };
 

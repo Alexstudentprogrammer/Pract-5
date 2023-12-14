@@ -4,6 +4,7 @@
 #include "KeyHash.h"
 #pragma warning(disable:4267)
 
+// Think about rehash
 template <typename K, typename V, typename F = KeyHash>
 class HashTable {
 private:

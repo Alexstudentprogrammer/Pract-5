@@ -50,5 +50,8 @@
     <ClInclude Include="KeyHash.h">
       <Filter>Header Files\Containers</Filter>
     </ClInclude>
+    <ClInclude Include="Trie.h">
+      <Filter>Header Files\Containers</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

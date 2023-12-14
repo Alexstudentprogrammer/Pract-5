@@ -5,13 +5,26 @@
 #include "HashTable.h"
 #include "my_vector.h"
 #include <list>
+#include "Trie.h"
+
 int main()
 {
     // Graphx
-    Test test;
+    //Two way search comparison
 
+    Test test;
    // test.run_test("Tests/stress_test_3.txt");
    // test.run_stress_test1(11, 44); // variate n - and analyze time and steps
+
+    /*Trie trie;
+    trie.add_word("111");
+    trie.add_word("alex");
+    trie.add_word("practicum");
+
+    cout << trie.check_word("alex") << endl;
+    cout << trie.check_word("111") << endl;
+    cout << trie.check_word("practicum") << endl;
+    cout << trie.check_word("some other word") << endl;*/
 
    while (true) {
 
