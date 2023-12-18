@@ -27,6 +27,7 @@ private:
 	HashTable<string, list<pair<string, string>>> graph;
 
 	Trie given_words;
+	char* tmp_suffix_cmp = new char[100];
 
 public:
 	Solver(char** words, int verticalSize, int* horizontalSize) {
@@ -40,6 +41,11 @@ public:
 	//O((number_of_words)^2 * (length_of_word)^4)
 	//number_of_words * (length_of_word)^2
 	void solve() {
+
+		char* tmp_prefix = new char[100];// try move to stack
+		char* tmp_suffix = new char[100];
+		char* tmp_middle_part = new char[100];
+
 		for (
 			int current_word_number = 0;
 			current_word_number < number_of_words;
@@ -57,10 +63,6 @@ public:
 					) {
 						continue;
 					}
-					
-					char* tmp_prefix = new char [start + 1];// try move to stack
-					char* tmp_suffix = new char [current_word_length - end + 1];
-					char* tmp_middle_part = new char [end - start + 1];
 
 					for (int i = 0; i < start; i++) {
 						tmp_prefix[i] = words[current_word_number][i];
@@ -91,9 +93,16 @@ public:
 						non_trivial_decompositions.put(decomposition_candidate, 0);
 						// size = number_of_words * (length_of_word)^2 -> (worth case)
 					}
+					tmp_suffix[current_word_length - end] = '0';
+					tmp_prefix[start] = '0';
+					tmp_middle_part[end - start] = '0';
 				}
 			}
 		}
+		delete[] tmp_suffix;
+		delete[] tmp_middle_part;
+		delete[] tmp_prefix;
+
 		total_steps;
 		vec_non_trivial_decompositions.insertAll(non_trivial_decompositions.getAllKeys());
 		generateBAlphabet(vec_non_trivial_decompositions);
@@ -256,13 +265,12 @@ private:
 			 return false;
 
 		}
-		char* tmp_suffix = new char[length_of_the_suffix];
 		for (int i = suffix, j = 0; i < length_of_suffix_word; i++, j++) {
-			tmp_suffix[j] = suffix_word[i];
+			tmp_suffix_cmp[j] = suffix_word[i];
 		}
 
 		for (int i = 0; i < prefix; i++) {
-			if (prefix_word[i] != tmp_suffix[i]) {
+			if (prefix_word[i] != tmp_suffix_cmp[i]) {
 				return false;
 			}
 		}
