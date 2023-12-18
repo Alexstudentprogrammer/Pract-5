@@ -73,7 +73,7 @@ public:
 					tmp_suffix[current_word_length - end] = '\0';
 
 					for (int i = start, j = 0; i < end; i++, j++) {
-						tmp_middle_part[j] = words[current_word_number][i];
+					tmp_middle_part[j] = words[current_word_number][i];
 					}
 					tmp_middle_part[end - start] = '\0';
 					string wordToCheck = string(tmp_middle_part);
@@ -88,7 +88,8 @@ public:
 							string(tmp_suffix),
 							string(tmp_middle_part)
 						);
-						non_trivial_decompositions.put(decomposition_candidate, 0);// size = number_of_words * (length_of_word)^2
+						non_trivial_decompositions.put(decomposition_candidate, 0);
+						// size = number_of_words * (length_of_word)^2 -> (worth case)
 					}
 				}
 			}
@@ -143,10 +144,9 @@ public:
 		}
 		return true;
 	}
-	//resolve prefix suffix must not belong to init words
-	//how to optimize decom. generation (consider sub-division)
 	
-	//O(num_of_words^3 * (length_of_word)^5) - BOTTLE NECK
+	// O(num_of_words^3 * (length_of_word)^5) - BOTTLE NECK
+	// opt -> O(num_of_words^2 * (length_of_word)^5)
 
 	void generateBAlphabet(Vector<Triplet> decompositions) {
 		for (int i = 0; i < vec_non_trivial_decompositions.size(); i++) {
@@ -195,7 +195,6 @@ public:
 	doDfs();
 }
 	void buildGraph() {
-		//vec_alphabet.insert(vec_alphabet.end(), alphabet.begin(), alphabet.end());
 		vec_alphabet.insertAll(alphabet.getAllKeys());
 		for (int i = 0; i < vec_alphabet.size(); i++) {// fixed size of graph
 			list<pair<string,string>> destinations;
@@ -227,7 +226,6 @@ public:
 		HashTable<string, list<pair<string, string>>>& graph,
 		string current_string
 	) {
-		//cout << "current vertex: " << curVertex << endl;
 		if (visited.find(curVertex) != visited.end()) {
 			if (curVertex == "") {
 				cout << "Not Ok: "<< current_string << endl;
