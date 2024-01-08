@@ -47,8 +47,8 @@ public:
 
 		for (int i = 0; i < word.size(); i++) {
 			steps++;
-			int current_char = word.at(i);
-			if (tmp->childs[current_char - 'A'] != NULL) {
+			int current_char = word.at(i);// fix types confusion
+			if (tmp->childs[current_char - 'A'] != NULL) {// add assertion or validation
 				tmp = tmp->childs[current_char - 'A'];
 			}
 			else {

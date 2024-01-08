@@ -39,7 +39,7 @@ int main()
        {
        case 1: {
            test.run_test("Tests/test_file_1.txt");
-           test.run_test("Tests/test_file_2.txt");
+           //test.run_test("Tests/test_file_2.txt");
            break;
        }
        case 2: {

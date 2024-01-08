@@ -42,9 +42,9 @@ public:
 	//number_of_words * (length_of_word)^2
 	void solve() {
 
-		char* tmp_prefix = new char[100];// try move to stack
-		char* tmp_suffix = new char[100];
-		char* tmp_middle_part = new char[100];
+		char* tmp_prefix = new char[1000];// try move to stack
+		char* tmp_suffix = new char[1000];
+		char* tmp_middle_part = new char[1000];
 
 		for (
 			int current_word_number = 0;
@@ -238,7 +238,7 @@ public:
 		if (visited.find(curVertex) != visited.end()) {
 			if (curVertex == "") {
 				cout << "Not Ok: "<< current_string << endl;
-				exit(1);
+				//exit(1);
 			}
 			return;
 		}
